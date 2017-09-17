@@ -1,0 +1,255 @@
+package com.isabiq.designpatterns.mvc.views;
+
+import java.awt.Color;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.isabiq.designpatterns.mvc.model.Author;
+import com.isabiq.designpatterns.mvc.model.Book;
+import com.isabiq.designpatterns.mvc.service.IService;
+import com.isabiq.designpatterns.mvc.service.ServiceImpl;
+import com.isabiq.designpatterns.mvc.views.components.AuthorTable;
+import com.isabiq.designpatterns.mvc.views.components.BookTable;
+
+/**
+ * The view contains all the components and data received from the model displayed to the user. It receives commands
+ * from the controller then talk to its model for updates and new data.
+ * 
+ * @author Sabiq Ihab
+ *
+ */
+public class View extends JFrame {
+
+  private static final long serialVersionUID = 1L;
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(View.class);
+
+  private IService service;
+
+  private int viewState;
+  public static final int AUTHOR_STATE = 0;
+  public static final int BOOK_STATE = 1;
+
+  private JPanel headerPanel;
+  private JButton switchButton;
+  private JLabel stateTitle;
+
+  private JPanel mainPanel;
+  private JTextField input_1;
+  private JTextField input_2;
+  private JButton addButton;
+  private JScrollPane tableJScrollPane;
+  private JTable table;
+
+  private JLabel authorName;
+  private JLabel email;
+
+  private JLabel bookTitle;
+  private JLabel price;
+  private AuthorTable authorTable;
+  private BookTable bookTable;
+  private JLabel bookAuthorNameLabel;
+  private JTextField bookAuthorNameInput;
+
+  public View() {
+    initComponents();
+    service = new ServiceImpl();
+  }
+
+  private void initComponents() {
+    this.setTitle("Library");
+    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// TODO close hibernate connection
+    this.setLayout(null);
+    this.setBounds(200, 100, 400, 500);
+
+    headerPanel = new JPanel();
+    headerPanel.setLayout(null);
+    headerPanel.setBounds(0, 0, 400, 20);
+    headerPanel.setBackground(Color.LIGHT_GRAY);
+    this.add(headerPanel);
+
+    switchButton = new JButton("switch");
+    switchButton.setBounds(300, 0, 100, 20);
+    headerPanel.add(switchButton);
+
+    stateTitle = new JLabel("Authors List");
+    stateTitle.setBounds(10, 0, 150, 30);
+    headerPanel.add(stateTitle);
+
+    mainPanel = new JPanel();
+    this.add(mainPanel);
+    mainPanel.setLayout(null);
+    mainPanel.setBounds(0, 20, 400, 600);
+    mainPanel.setBackground(Color.lightGray);
+
+    input_1 = new JTextField();
+    input_1.setBounds(90, 30, 160, 25);
+    mainPanel.add(input_1);
+
+    input_2 = new JTextField();
+    input_2.setBounds(90, 60, 160, 25);
+    mainPanel.add(input_2);
+
+    addButton = new JButton("Add");
+    addButton.setBounds(180, 130, 90, 30);
+    mainPanel.add(addButton);
+
+    authorTable = new AuthorTable();
+    bookTable = new BookTable();
+
+    table = new JTable(authorTable);
+    tableJScrollPane = new JScrollPane(table);
+    tableJScrollPane.setBounds(10, 180, 380, 240);
+    mainPanel.add(tableJScrollPane);
+
+    authorName = new JLabel("Name");
+    authorName.setBounds(30, 30, 50, 20);
+    mainPanel.add(authorName);
+
+    email = new JLabel("Email");
+    email.setBounds(30, 60, 50, 20);
+    mainPanel.add(email);
+
+    bookTitle = new JLabel("Title");
+    bookTitle.setBounds(30, 30, 50, 20);
+
+    price = new JLabel("Price");
+    price.setBounds(30, 60, 50, 20);
+
+    bookAuthorNameInput = new JTextField();
+    bookAuthorNameInput.setBounds(90, 90, 160, 25);
+
+    bookAuthorNameLabel = new JLabel("Author");
+    bookAuthorNameLabel.setBounds(30, 90, 50, 20);
+
+  }
+
+  public void addAuthor(Author author) throws Exception {
+    service.addAuthor(author);
+    LOGGER.info("{} added", author);
+    authorTable.setItems(service.getAuthors());
+    authorTable.fireTableDataChanged();
+  }
+
+  public void addBook(Book book, String authorName) throws Exception {
+    service.addBook(book, authorName);
+    LOGGER.info("{} added", book);
+    bookTable.setItems(service.getBooks());
+    bookTable.fireTableDataChanged();
+  }
+
+  private void alterViewState() {
+    if (viewState == AUTHOR_STATE) {
+      mainPanel.remove(bookTitle);
+      mainPanel.remove(price);
+      mainPanel.remove(bookAuthorNameInput);
+      mainPanel.remove(bookAuthorNameLabel);
+      mainPanel.add(authorName);
+      mainPanel.add(email);
+      stateTitle.setText("Authors List");
+      table.setModel(authorTable);
+    } else if (viewState == BOOK_STATE) {
+      mainPanel.remove(authorName);
+      mainPanel.remove(email);
+      mainPanel.add(bookTitle);
+      mainPanel.add(price);
+      mainPanel.add(bookAuthorNameInput);
+      mainPanel.add(bookAuthorNameLabel);
+      stateTitle.setText("Books List");
+      table.setModel(bookTable);
+    }
+  }
+
+  public void displayMessage(String message) {
+    JOptionPane.showMessageDialog(null, message, "Message", JOptionPane.ERROR_MESSAGE);
+  }
+
+  public int getViewState() {
+    return viewState;
+  }
+
+  public void setViewState(int viewState) {
+    this.viewState = viewState;
+    alterViewState();
+    LOGGER.info("View switched");
+  }
+
+  public JPanel getHeaderPanel() {
+    return headerPanel;
+  }
+
+  public JButton getSwitchButton() {
+    return switchButton;
+  }
+
+  public JPanel getMainPanel() {
+    return mainPanel;
+  }
+
+  public JTextField getInput_1() {
+    return input_1;
+  }
+
+  public JTextField getInput_2() {
+    return input_2;
+  }
+
+  public JButton getAddButton() {
+    return addButton;
+  }
+
+  public JScrollPane getTableJScrollPane() {
+    return tableJScrollPane;
+  }
+
+  public JTable getTable() {
+    return table;
+  }
+
+  public JLabel getAuthorName() {
+    return authorName;
+  }
+
+  public JLabel getEmail() {
+    return email;
+  }
+
+  public JLabel getBookTitle() {
+    return bookTitle;
+  }
+
+  public JLabel getPrice() {
+    return price;
+  }
+
+  public AuthorTable getAuthorTable() {
+    return authorTable;
+  }
+
+  public BookTable getBookTable() {
+    return bookTable;
+  }
+
+  public JLabel getBookAuthorNameLabel() {
+    return bookAuthorNameLabel;
+  }
+
+  public JTextField getBookAuthorNameInput() {
+    return bookAuthorNameInput;
+  }
+
+  public JLabel getStateTitle() {
+    return stateTitle;
+  }
+
+}
