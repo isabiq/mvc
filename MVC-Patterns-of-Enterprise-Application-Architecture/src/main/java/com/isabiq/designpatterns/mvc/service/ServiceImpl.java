@@ -43,6 +43,7 @@ public class ServiceImpl implements IService {
     }
   }
 
+  @SuppressWarnings("unchecked")
   public List<Author> getAuthors() {
     List<Author> authors = null;
     try (Session session = sessionFactory.openSession()) {
@@ -72,6 +73,7 @@ public class ServiceImpl implements IService {
     }
   }
 
+  @SuppressWarnings("unchecked")
   public List<Book> getBooks() {
     List<Book> books = null;
     try (Session session = sessionFactory.openSession()) {
