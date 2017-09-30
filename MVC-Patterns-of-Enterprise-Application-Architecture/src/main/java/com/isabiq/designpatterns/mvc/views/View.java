@@ -23,8 +23,8 @@ import com.isabiq.designpatterns.mvc.views.components.AuthorTable;
 import com.isabiq.designpatterns.mvc.views.components.BookTable;
 
 /**
- * The view contains all the components and data received from the model displayed to the user. It receives commands
- * from the controller then talk to its model for updates and new data.
+ * The view contains all the components and data received from the model displayed to the user. It handles all
+ * application logic and talk to its model for updates and new data.
  * 
  * @author Sabiq Ihab
  *

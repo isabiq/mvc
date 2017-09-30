@@ -1,7 +1,8 @@
 
 ## Summary
 This MVC implementation respects the following :
-* TODO
+* The model is an independent component, it represent the business model.
+* The view is responsible for querying and updating the model. It's also responsible for managing the application logic and handling user actions.
 
 ![alt text](./diagram/MVC-Patterns-of-Enterprise-Application-Architecture.png "MVC-Patterns-of-Enterprise-Application-Architecture")
 
