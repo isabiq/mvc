@@ -1,12 +1,15 @@
 package com.isabiq.designpatterns.mvc.controllers;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.isabiq.designpatterns.mvc.model.Author;
 import com.isabiq.designpatterns.mvc.model.Book;
+import com.isabiq.designpatterns.mvc.util.HibernateUtil;
 import com.isabiq.designpatterns.mvc.views.View;
 
 /**
@@ -31,6 +34,12 @@ public class Controller {
     view.getSwitchButton().addActionListener(this::switchViewstate);
     view.getAddButton().addActionListener(this::addButtonHandler);
 
+    view.addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowClosing(WindowEvent e) {
+        HibernateUtil.getSessionFactory().close();
+      }
+    });
   }
 
   private void switchViewstate(ActionEvent actionEvent) {

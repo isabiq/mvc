@@ -68,7 +68,7 @@ public class View extends JFrame {
 
   private void initComponents() {
     this.setTitle("Library");
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// TODO close hibernate connection
+    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(null);
     this.setBounds(200, 100, 400, 500);
 

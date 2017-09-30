@@ -2,6 +2,8 @@ package com.isabiq.designpatterns.mvc.views;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,6 +21,7 @@ import com.isabiq.designpatterns.mvc.model.Author;
 import com.isabiq.designpatterns.mvc.model.Book;
 import com.isabiq.designpatterns.mvc.service.IService;
 import com.isabiq.designpatterns.mvc.service.ServiceImpl;
+import com.isabiq.designpatterns.mvc.util.HibernateUtil;
 import com.isabiq.designpatterns.mvc.views.components.AuthorTable;
 import com.isabiq.designpatterns.mvc.views.components.BookTable;
 
@@ -73,7 +76,7 @@ public class View extends JFrame {
    */
   private void initComponents() {
     this.setTitle("Library");
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// TODO close hibernate connection
+    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(null);
     this.setBounds(200, 100, 400, 500);
 
@@ -143,6 +146,12 @@ public class View extends JFrame {
     this.switchButton.addActionListener(this::switchViewstate);
     this.addButton.addActionListener(this::addButtonHandler);
 
+    this.addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowClosing(WindowEvent e) {
+        HibernateUtil.getSessionFactory().close();
+      }
+    });
   }
 
   private void switchViewstate(ActionEvent actionEvent) {
