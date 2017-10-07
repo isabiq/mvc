@@ -71,6 +71,7 @@ public class View extends JFrame {
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(null);
     this.setBounds(200, 100, 400, 500);
+    this.setResizable(false);
 
     headerPanel = new JPanel();
     headerPanel.setLayout(null);
