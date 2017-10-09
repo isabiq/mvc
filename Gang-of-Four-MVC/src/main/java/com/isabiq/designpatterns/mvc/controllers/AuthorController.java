@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 
 import com.isabiq.designpatterns.mvc.factory.IController;
 import com.isabiq.designpatterns.mvc.model.Author;
+import com.isabiq.designpatterns.mvc.model.Model;
 import com.isabiq.designpatterns.mvc.service.IService;
 import com.isabiq.designpatterns.mvc.service.ServiceImpl;
 import com.isabiq.designpatterns.mvc.views.AuthorView;
@@ -13,14 +14,17 @@ public class AuthorController implements IController {
   private BookController bookController;
   private final AuthorView authorView;
   private IService service;
+  private Model model;
 
-  public AuthorController(AuthorView authorView) {
+  public AuthorController(AuthorView authorView, Model model) {
     this.authorView = authorView;
+    this.model = model;
     service = new ServiceImpl();
     register();
   }
 
   private void register() {
+    model.addObserver(authorView);
     authorView.getAddButton().addActionListener(this::addButtonHandler);
     authorView.getSwitchButton().addActionListener(this::switchButtonHandler);
   }
@@ -52,8 +56,8 @@ public class AuthorController implements IController {
       }
 
       service.addAuthor(new Author(name, email));
-      authorView.getAuthorTable().setItems(service.getAuthors());
-      authorView.getAuthorTable().fireTableDataChanged();
+      model.setChanged();
+      model.notifyObservers();
     } catch (Exception e) {
       // LOGGER.error("An error occurred ", e);
       authorView.displayMessage("Invalid Input ! " + e.getMessage());

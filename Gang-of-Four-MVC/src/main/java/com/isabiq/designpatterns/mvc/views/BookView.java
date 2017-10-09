@@ -1,6 +1,8 @@
 package com.isabiq.designpatterns.mvc.views;
 
 import java.awt.Color;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -10,14 +12,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import com.isabiq.designpatterns.mvc.service.IService;
+import com.isabiq.designpatterns.mvc.service.ServiceImpl;
 import com.isabiq.designpatterns.mvc.views.components.BookTable;
 
-public class BookView extends JPanel {
+public class BookView extends JPanel implements Observer {
 
   /**
    * 
    */
   private static final long serialVersionUID = 1L;
+
+  private IService service;
   private JButton switchButton;
   private JTextField input_1;
   private JTextField input_2;
@@ -32,6 +38,7 @@ public class BookView extends JPanel {
   private JTextField bookAuthorNameInput;
 
   public BookView() {
+    service = new ServiceImpl();
     init();
   }
 
@@ -126,6 +133,12 @@ public class BookView extends JPanel {
 
   public JTextField getBookAuthorNameInput() {
     return bookAuthorNameInput;
+  }
+
+  @Override
+  public void update(Observable o, Object arg) {
+    bookTable.setItems(service.getBooks());
+    bookTable.fireTableDataChanged();
   }
 
 }

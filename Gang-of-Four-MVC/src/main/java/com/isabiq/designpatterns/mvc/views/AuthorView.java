@@ -1,6 +1,8 @@
 package com.isabiq.designpatterns.mvc.views;
 
 import java.awt.Color;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -10,14 +12,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import com.isabiq.designpatterns.mvc.service.IService;
+import com.isabiq.designpatterns.mvc.service.ServiceImpl;
 import com.isabiq.designpatterns.mvc.views.components.AuthorTable;
 
-public class AuthorView extends JPanel {
+public class AuthorView extends JPanel implements Observer {
 
   /**
    * 
    */
   private static final long serialVersionUID = 1L;
+
+  private IService service;
   private JButton switchButton;
   private JTextField input_1;
   private JTextField input_2;
@@ -30,6 +36,7 @@ public class AuthorView extends JPanel {
   private JLabel email;
 
   public AuthorView() {
+    service = new ServiceImpl();
     init();
   }
 
@@ -41,7 +48,7 @@ public class AuthorView extends JPanel {
     switchButton = new JButton("switch");
     switchButton.setBounds(300, 0, 100, 20);
     this.add(switchButton);
-    
+
     input_1 = new JTextField();
     input_1.setBounds(90, 30, 160, 25);
     this.add(input_1);
@@ -109,6 +116,12 @@ public class AuthorView extends JPanel {
 
   public JLabel getEmail() {
     return email;
+  }
+
+  @Override
+  public void update(Observable o, Object arg) {
+    authorTable.setItems(service.getAuthors());
+    authorTable.fireTableDataChanged();
   }
 
 }
