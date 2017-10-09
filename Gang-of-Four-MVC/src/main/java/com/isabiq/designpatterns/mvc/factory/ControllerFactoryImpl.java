@@ -14,9 +14,11 @@ public class ControllerFactoryImpl extends ControllerFactory {
 
     BookView bookView = new BookView();
     BookController bookController = new BookController(bookView);
+    bookController.closeView();
 
     AuthorView authorView = new AuthorView();
     AuthorController authorController = new AuthorController(authorView);
+    authorController.openView();
 
     authorController.setBookController(bookController);
     bookController.setAuthorController(authorController);

@@ -1,5 +1,8 @@
 package com.isabiq.designpatterns.mvc.factory;
 
 public interface IController {
-  void start();
+
+  void openView();
+
+  void closeView();
 }

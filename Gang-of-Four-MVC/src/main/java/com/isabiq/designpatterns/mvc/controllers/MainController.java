@@ -13,7 +13,7 @@ public class MainController implements IController {
   }
 
   @Override
-  public void start() {
+  public void openView() {
     JFrame frame = new JFrame("Library");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setLayout(null);
@@ -23,6 +23,12 @@ public class MainController implements IController {
     frame.add(mainView);
     mainView.setVisible(true);
     frame.repaint();
+  }
+
+  @Override
+  public void closeView() {
+    // TODO Auto-generated method stub
+    
   }
 
 }

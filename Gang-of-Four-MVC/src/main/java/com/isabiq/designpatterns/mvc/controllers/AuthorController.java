@@ -26,13 +26,18 @@ public class AuthorController implements IController {
   }
 
   private void switchButtonHandler(ActionEvent actionEvent) {
-    authorView.setVisible(false);
-    authorView.repaint();
-    bookController.start();
+    closeView();
+    bookController.openView();
   }
 
-  public void start() {
+  public void openView() {
     authorView.setVisible(true);
+    authorView.repaint();
+  }
+
+  @Override
+  public void closeView() {
+    authorView.setVisible(false);
     authorView.repaint();
   }
 

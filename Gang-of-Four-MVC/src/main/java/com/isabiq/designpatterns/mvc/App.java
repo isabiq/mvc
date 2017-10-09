@@ -9,7 +9,7 @@ public class App {
   public static void main(String[] args) {
     ControllerFactory factory = new ControllerFactoryImpl();
     IController controller = factory.getDefaultController();
-    controller.start();
+    controller.openView();
 
   }
 
