@@ -2,11 +2,11 @@ package com.isabiq.designpatterns.mvc.factory;
 
 import com.isabiq.designpatterns.mvc.controllers.AuthorController;
 import com.isabiq.designpatterns.mvc.controllers.BookController;
-import com.isabiq.designpatterns.mvc.controllers.MainController;
+import com.isabiq.designpatterns.mvc.controllers.TopController;
 import com.isabiq.designpatterns.mvc.model.Model;
 import com.isabiq.designpatterns.mvc.views.AuthorView;
 import com.isabiq.designpatterns.mvc.views.BookView;
-import com.isabiq.designpatterns.mvc.views.MainView;
+import com.isabiq.designpatterns.mvc.views.TopView;
 
 public class ControllerFactoryImpl extends ControllerFactory {
 
@@ -26,11 +26,11 @@ public class ControllerFactoryImpl extends ControllerFactory {
     authorController.setBookController(bookController);
     bookController.setAuthorController(authorController);
 
-    MainView mainView = new MainView();
+    TopView mainView = new TopView();
     mainView.add(bookView);
     mainView.add(authorView);
 
-    return new MainController(mainView);
+    return new TopController(mainView);
   }
 
 }

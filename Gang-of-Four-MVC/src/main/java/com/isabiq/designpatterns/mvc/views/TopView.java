@@ -5,14 +5,14 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
-public class MainView extends JPanel implements Observer {
+public class TopView extends JPanel implements Observer {
 
   /**
    * 
    */
   private static final long serialVersionUID = 1L;
 
-  public MainView() {
+  public TopView() {
     init();
   }
 
