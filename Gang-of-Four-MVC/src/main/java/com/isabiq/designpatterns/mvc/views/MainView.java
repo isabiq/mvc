@@ -1,8 +1,8 @@
 package com.isabiq.designpatterns.mvc.views;
 
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-public class MainView extends JFrame {
+public class MainView extends JPanel {
 
   /**
    * 
@@ -14,7 +14,8 @@ public class MainView extends JFrame {
   }
 
   private void init() {
-    this.setVisible(true);
+    this.setLayout(null);
+    this.setBounds(0, 0, 400, 500);
   }
 
 }

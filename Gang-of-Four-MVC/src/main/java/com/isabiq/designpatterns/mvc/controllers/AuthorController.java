@@ -2,19 +2,38 @@ package com.isabiq.designpatterns.mvc.controllers;
 
 import java.awt.event.ActionEvent;
 
+import com.isabiq.designpatterns.mvc.factory.IController;
+import com.isabiq.designpatterns.mvc.model.Author;
+import com.isabiq.designpatterns.mvc.service.IService;
+import com.isabiq.designpatterns.mvc.service.ServiceImpl;
 import com.isabiq.designpatterns.mvc.views.AuthorView;
 
-public class AuthorController {
+public class AuthorController implements IController {
 
-  private AuthorView authorView = new AuthorView();
+  private BookController bookController;
+  private final AuthorView authorView;
+  private IService service;
 
-  public AuthorController() {
+  public AuthorController(AuthorView authorView) {
+    this.authorView = authorView;
+    service = new ServiceImpl();
     register();
   }
 
   private void register() {
     authorView.getAddButton().addActionListener(this::addButtonHandler);
+    authorView.getSwitchButton().addActionListener(this::switchButtonHandler);
+  }
 
+  private void switchButtonHandler(ActionEvent actionEvent) {
+    authorView.setVisible(false);
+    authorView.repaint();
+    bookController.start();
+  }
+
+  public void start() {
+    authorView.setVisible(true);
+    authorView.repaint();
   }
 
   private void addButtonHandler(ActionEvent actionEvent) {
@@ -27,13 +46,19 @@ public class AuthorController {
         throw new RuntimeException("Please Fill in all the fields");
       }
 
-      // authorView.addAuthor(new Author(name, email));
+      service.addAuthor(new Author(name, email));
+      authorView.getAuthorTable().setItems(service.getAuthors());
+      authorView.getAuthorTable().fireTableDataChanged();
     } catch (Exception e) {
       // LOGGER.error("An error occurred ", e);
       authorView.displayMessage("Invalid Input ! " + e.getMessage());
     }
     clean();
 
+  }
+
+  public void setBookController(BookController bookController) {
+    this.bookController = bookController;
   }
 
   private void clean() {

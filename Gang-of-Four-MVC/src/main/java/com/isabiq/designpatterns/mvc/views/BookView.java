@@ -10,9 +10,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import com.isabiq.designpatterns.mvc.views.components.AuthorTable;
+import com.isabiq.designpatterns.mvc.views.components.BookTable;
 
-public class AuthorView extends JPanel {
+public class BookView extends JPanel {
 
   /**
    * 
@@ -24,12 +24,14 @@ public class AuthorView extends JPanel {
   private JButton addButton;
   private JScrollPane tableJScrollPane;
   private JTable table;
-  private AuthorTable authorTable;
 
-  private JLabel authorName;
-  private JLabel email;
+  private JLabel bookTitle;
+  private JLabel price;
+  private BookTable bookTable;
+  private JLabel bookAuthorNameLabel;
+  private JTextField bookAuthorNameInput;
 
-  public AuthorView() {
+  public BookView() {
     init();
   }
 
@@ -41,7 +43,7 @@ public class AuthorView extends JPanel {
     switchButton = new JButton("switch");
     switchButton.setBounds(300, 0, 100, 20);
     this.add(switchButton);
-    
+
     input_1 = new JTextField();
     input_1.setBounds(90, 30, 160, 25);
     this.add(input_1);
@@ -54,25 +56,28 @@ public class AuthorView extends JPanel {
     addButton.setBounds(180, 130, 90, 30);
     this.add(addButton);
 
-    authorTable = new AuthorTable();
+    bookTitle = new JLabel("Title");
+    bookTitle.setBounds(30, 30, 50, 20);
+    this.add(bookTitle);
 
-    table = new JTable(authorTable);
+    price = new JLabel("Price");
+    price.setBounds(30, 60, 50, 20);
+    this.add(price);
+
+    bookTable = new BookTable();
+
+    table = new JTable(bookTable);
     tableJScrollPane = new JScrollPane(table);
     tableJScrollPane.setBounds(10, 180, 380, 240);
     this.add(tableJScrollPane);
 
-    authorName = new JLabel("Name");
-    authorName.setBounds(30, 30, 50, 20);
-    this.add(authorName);
+    bookAuthorNameInput = new JTextField();
+    bookAuthorNameInput.setBounds(90, 90, 160, 25);
+    this.add(bookAuthorNameInput);
 
-    email = new JLabel("Email");
-    email.setBounds(30, 60, 50, 20);
-    this.add(email);
-
-  }
-
-  public AuthorTable getAuthorTable() {
-    return authorTable;
+    bookAuthorNameLabel = new JLabel("Author");
+    bookAuthorNameLabel.setBounds(30, 90, 50, 20);
+    this.add(bookAuthorNameLabel);
   }
 
   public void displayMessage(String message) {
@@ -103,12 +108,24 @@ public class AuthorView extends JPanel {
     return table;
   }
 
-  public JLabel getAuthorName() {
-    return authorName;
+  public JLabel getBookTitle() {
+    return bookTitle;
   }
 
-  public JLabel getEmail() {
-    return email;
+  public JLabel getPrice() {
+    return price;
+  }
+
+  public BookTable getBookTable() {
+    return bookTable;
+  }
+
+  public JLabel getBookAuthorNameLabel() {
+    return bookAuthorNameLabel;
+  }
+
+  public JTextField getBookAuthorNameInput() {
+    return bookAuthorNameInput;
   }
 
 }
