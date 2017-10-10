@@ -16,6 +16,12 @@ import com.isabiq.designpatterns.mvc.service.IService;
 import com.isabiq.designpatterns.mvc.service.ServiceImpl;
 import com.isabiq.designpatterns.mvc.views.components.BookTable;
 
+/**
+ * Book View.
+ * 
+ * @author Sabiq Ihab
+ *
+ */
 public class BookView extends JPanel implements Observer {
 
   /**

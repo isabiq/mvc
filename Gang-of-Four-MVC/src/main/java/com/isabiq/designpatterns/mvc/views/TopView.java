@@ -5,6 +5,12 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
+/**
+ * Top View used as a container for all the other views.
+ * 
+ * @author Sabiq Ihab
+ *
+ */
 public class TopView extends JPanel implements Observer {
 
   /**

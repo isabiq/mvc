@@ -15,7 +15,12 @@ import javax.swing.JTextField;
 import com.isabiq.designpatterns.mvc.service.IService;
 import com.isabiq.designpatterns.mvc.service.ServiceImpl;
 import com.isabiq.designpatterns.mvc.views.components.AuthorTable;
-
+/**
+ * Author View.
+ * 
+ * @author Sabiq Ihab
+ *
+ */
 public class AuthorView extends JPanel implements Observer {
 
   /**

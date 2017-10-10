@@ -5,11 +5,22 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.isabiq.designpatterns.mvc.factory.IController;
 import com.isabiq.designpatterns.mvc.util.HibernateUtil;
 import com.isabiq.designpatterns.mvc.views.TopView;
 
+/**
+ * Class responsible for creating and configuring the frame.
+ * 
+ * @author Sabiq Ihab
+ *
+ */
 public class TopController implements IController {
+  private static final Logger LOGGER = LoggerFactory.getLogger(TopController.class);
+
   private final TopView topView;
 
   public TopController(TopView topView) {
@@ -37,7 +48,7 @@ public class TopController implements IController {
 
   @Override
   public void closeView() {
-    // TODO Auto-generated method stub
+    LOGGER.error("Can't call close on this view", new RuntimeException());
 
   }
 
