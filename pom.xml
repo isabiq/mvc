@@ -21,7 +21,6 @@
 		<module>Trygve-Reenskaug-1979-12-10-MVC</module>
 		<module>MVC-Patterns-of-Enterprise-Application-Architecture</module>
 		<module>Gang-of-Four-MVC</module>
-		<module>observer-pattern</module>
 	</modules>
 
 	<dependencyManagement>
