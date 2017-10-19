@@ -13,6 +13,8 @@ import javax.swing.JTextField;
 
 import org.puremvc.java.multicore.interfaces.INotification;
 import org.puremvc.java.multicore.patterns.mediator.Mediator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.isabiq.designpatterns.mvc.ApplicationFacade;
 import com.isabiq.designpatterns.mvc.model.BookProxy;
@@ -20,9 +22,17 @@ import com.isabiq.designpatterns.mvc.model.vo.AuthorVO;
 import com.isabiq.designpatterns.mvc.model.vo.BookVO;
 import com.isabiq.designpatterns.mvc.views.components.BookTable;
 
+/**
+ * Class responsible for creating the book view, handling user actions and listening to notifications for views changes.
+ * 
+ * @author Sabiq Ihab
+ *
+ */
 public class BookPanelMediator extends Mediator {
 
   public static final String NAME = "BookPanelMediator";
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(BookPanelMediator.class);
 
   private JPanel bookJPanel;
 
@@ -59,6 +69,7 @@ public class BookPanelMediator extends Mediator {
   public final void handleNotification(final INotification notification) {
     switch (notification.getName()) {
     case ApplicationFacade.BOOK_ADDED:
+      LOGGER.info("New Book added.");
       bookTable.setItems(bookProxy.getBooks());
       bookTable.fireTableDataChanged();
       clean();
@@ -67,9 +78,11 @@ public class BookPanelMediator extends Mediator {
       bookJPanel.setVisible(false);
       break;
     case ApplicationFacade.BOOK_ON:
+      LOGGER.info("Switched to Book View.");
       bookJPanel.setVisible(true);
       break;
     case ApplicationFacade.ADD_BOOK_ERROR:
+      LOGGER.error(((Exception) notification.getBody()).getMessage(), ((Exception) notification.getBody()));
       JOptionPane.showMessageDialog(null, ((Exception) notification.getBody()).getMessage(), "Message",
           JOptionPane.ERROR_MESSAGE);
       break;
@@ -109,6 +122,7 @@ public class BookPanelMediator extends Mediator {
     try {
       numericPrice = Float.parseFloat(price);
     } catch (NumberFormatException e) {
+      LOGGER.error(e.getMessage(), e);
       JOptionPane.showMessageDialog(null, "Wrong Price Input " + e.getMessage(), "Message", JOptionPane.ERROR_MESSAGE);
       return;
     }

@@ -10,6 +10,12 @@ import org.puremvc.java.multicore.patterns.mediator.Mediator;
 
 import com.isabiq.designpatterns.mvc.util.HibernateUtil;
 
+/**
+ * Class responsible for creating the top view, handling user actions and listening to notifications for views changes.
+ * 
+ * @author Sabiq Ihab
+ *
+ */
 public class TopPanelMediator extends Mediator {
 
   public static final String NAME = "TopPanelMediator";

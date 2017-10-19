@@ -1,12 +1,22 @@
 package com.isabiq.designpatterns.mvc;
 
 import org.puremvc.java.multicore.patterns.facade.Facade;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.isabiq.designpatterns.mvc.controllers.AddAuthorCommand;
 import com.isabiq.designpatterns.mvc.controllers.AddBookCommand;
 import com.isabiq.designpatterns.mvc.controllers.StartupCommand;
 
+/**
+ * Register the commands and start the application through a startup notification.
+ * 
+ * @author Sabiq Ihab
+ *
+ */
 public class ApplicationFacade extends Facade {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationFacade.class);
 
   public static final String STARTUP = "startup";
 
@@ -34,7 +44,8 @@ public class ApplicationFacade extends Facade {
     if (instanceMap.get(key) == null) {
       try {
         new ApplicationFacade(key);
-      } catch (Exception e) {
+      } catch (RuntimeException e) {
+        LOGGER.info("Error Initializing ApplicationFacade", e);
       }
     }
     return (ApplicationFacade) instanceMap.get(key);
@@ -52,11 +63,11 @@ public class ApplicationFacade extends Facade {
    */
   @Override
   protected final void initializeController() {
+    LOGGER.info("Registering the commands for notifications.");
     super.initializeController();
     registerCommand(STARTUP, new StartupCommand());
     registerCommand(ADD_AUTHOR, new AddAuthorCommand());
     registerCommand(ADD_BOOK, new AddBookCommand());
-    // registerCommand(SWITCH_VIEW, new SwitchViewCommand());
   }
 
 }

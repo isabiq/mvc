@@ -13,15 +13,26 @@ import javax.swing.JTextField;
 
 import org.puremvc.java.multicore.interfaces.INotification;
 import org.puremvc.java.multicore.patterns.mediator.Mediator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.isabiq.designpatterns.mvc.ApplicationFacade;
 import com.isabiq.designpatterns.mvc.model.AuthorProxy;
 import com.isabiq.designpatterns.mvc.model.vo.AuthorVO;
 import com.isabiq.designpatterns.mvc.views.components.AuthorTable;
 
+/**
+ * Class responsible for creating the author view, handling user actions and listening to notifications for views
+ * changes.
+ * 
+ * @author Sabiq Ihab
+ *
+ */
 public class AuthorPanelMediator extends Mediator {
 
   public static final String NAME = "AuthorPanelMediator";
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(AuthorPanelMediator.class);
 
   private AuthorProxy authorProxy;
 
@@ -56,17 +67,20 @@ public class AuthorPanelMediator extends Mediator {
   public final void handleNotification(final INotification notification) {
     switch (notification.getName()) {
     case ApplicationFacade.AUTHOR_ADDED:
+      LOGGER.info("New Author added.");
       authorTable.setItems(authorProxy.getAuthors());
       authorTable.fireTableDataChanged();
       clean();
       break;
     case ApplicationFacade.AUTHOR_ON:
+      LOGGER.info("Switched to Author View.");
       authorJPanel.setVisible(true);
       break;
     case ApplicationFacade.BOOK_ON:
       authorJPanel.setVisible(false);
       break;
     case ApplicationFacade.ADD_AUTHOR_ERROR:
+      LOGGER.error(((Exception) notification.getBody()).getMessage(), ((Exception) notification.getBody()));
       JOptionPane.showMessageDialog(null, ((Exception) notification.getBody()).getMessage(), "Message",
           JOptionPane.ERROR_MESSAGE);
       break;

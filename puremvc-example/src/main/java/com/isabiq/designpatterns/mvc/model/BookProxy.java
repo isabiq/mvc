@@ -8,6 +8,12 @@ import com.isabiq.designpatterns.mvc.model.vo.BookVO;
 import com.isabiq.designpatterns.mvc.service.IService;
 import com.isabiq.designpatterns.mvc.service.ServiceImpl;
 
+/**
+ * Class responsible for the calling the Book service methods and catching its results.
+ * 
+ * @author Sabiq Ihab
+ *
+ */
 public class BookProxy extends Proxy {
 
   public static final String NAME = "BookProxy";

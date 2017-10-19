@@ -8,6 +8,12 @@ import com.isabiq.designpatterns.mvc.model.vo.AuthorVO;
 import com.isabiq.designpatterns.mvc.service.IService;
 import com.isabiq.designpatterns.mvc.service.ServiceImpl;
 
+/**
+ * Class responsible for the calling the Author service methods and catching its results.
+ * 
+ * @author Sabiq Ihab
+ *
+ */
 public class AuthorProxy extends Proxy {
 
   public static final String NAME = "AuthorProxy";
