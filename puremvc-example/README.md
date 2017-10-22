@@ -11,11 +11,16 @@ This MVC implementation respects the following :
 
 ## Advantages
 
-* TODO
+* The use of proxy is very efficient for caching results and can be expanded to other uses.
+* An easy mechanism for communication between Mediators, Commands and proxies.
+* The design can scale as the application grows.
+* The facade make it easier to manage all the tiers of the application.
 
 ## Limits
 
-* TODO
+* The Mediator does seem to have more responsibility and it should have.
+* The use of commands is very unclear and doesn't seem to have a big role in the hole application life cycle.
+* The way the notification system is implemented can make the application logic harder to understand or even become uncontrollable.
 
 ## References
 

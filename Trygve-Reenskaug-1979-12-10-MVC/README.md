@@ -10,11 +10,14 @@ This MVC implementation respects the following :
 
 ## Advantages
 
-* TODO
+* Very simple to follow and straightforward in making decisions.
+* Can make use of data binding between the view and the model, which make updating the view easier.
+* No complexity in building objects and starting the application.
 
 ## Limits
 
-* TODO
+* The view does seem to have many responsibilities. Since it is the one building and managing the view components, updating the model and receiving results from it.
+* Their is no support for communication between controllers or between views.
 
 ## References
 

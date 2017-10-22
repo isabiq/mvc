@@ -8,11 +8,13 @@ This MVC implementation respects the following :
 
 ## Advantages
 
-* TODO
+* Very natural to follow.
+* Less code, and more focus on the application and business logic.
+* No complexity in building objects and starting the application.
 
 ## Limits
 
-* TODO
+* The view will get complicated as the application grows.
 
 ## References
 

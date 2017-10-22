@@ -10,11 +10,12 @@ This MVC implementation respects the following :
 
 ## Advantages
 
-* TODO
+* The observer pattern make updating views very simple.
+* The design can scale as the application grows.
 
 ## Limits
 
-* TODO
+* No support for communication between controllers.
 
 ## References
 
