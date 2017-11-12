@@ -1,7 +1,7 @@
 
 ## Summary
 This MVC implementation respects the following :
-* The model is an independent component, it represent the application business side.
+* The model is an independent component, it represents the application business side.
 * The controller is responsible for handling user actions and inputs and sending commands to its views.
 * The view is responsible for sending commands to the model and receiving updates. It is also responsible for managing the components to be displayed, in response to the controller commands.
 
@@ -17,7 +17,7 @@ This MVC implementation respects the following :
 ## Limits
 
 * The view does seem to have many responsibilities. Since it is the one building and managing the view components, updating the model and receiving results from it.
-* Their is no support for communication between controllers or between views.
+* There is no support for communication between controllers or between views.
 
 ## References
 
